@@ -1,16 +1,37 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Sirus
- * Date: 2017/2/16
- * Time: 23:51
- */
 namespace app\models;
+/**
+ * This is the model class for table "push_record".
+ *
+ * @property string $id
+ * @property string $name
+ * @property string $department
+ * @property string $guy_name
+ * @property string $guy_phone
+ * @property string $guy_email
+ */
+class PushRecord extends \yii\db\ActiveRecord {
+    public static function tableName() {
+        return 'push_record';
+    }
 
-use yii\db\ActiveRecord;
+    public function rules() {
+        return [
+            [['name', 'department', 'guy_name', 'guy_email'], 'string', 'max' => 50],
+            [['guy_phone'], 'string', 'max' => 11],
+        ];
+    }
 
-class PushRecord extends ActiveRecord {
-
+    public function attributeLabels() {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'department' => 'Department',
+            'guy_name' => 'Guy Name',
+            'guy_phone' => 'Guy Phone',
+            'guy_email' => 'Guy Email',
+        ];
+    }
 }
 
 /*
