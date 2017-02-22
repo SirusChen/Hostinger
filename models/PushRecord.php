@@ -36,7 +36,7 @@ class PushRecord extends \yii\db\ActiveRecord {
 
 /*
  *
- CREATE TABLE `vip_push` (
+ CREATE TABLE `push_record` (
     `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
     `name` VARCHAR(50) NOT NULL DEFAULT '' ,
     `department` VARCHAR(50) NOT NULL DEFAULT '' ,
@@ -46,5 +46,5 @@ class PushRecord extends \yii\db\ActiveRecord {
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `vip_push` (`name`, `department`, `guy_name`, `guy_phone`, `guy_email`) VALUES ('陈思宇', '花海仓', '周杰伦', '13822192563', 'siruschen@foxmail.com')
+INSERT INTO `push_record` (`name`, `department`, `guy_name`, `guy_phone`, `guy_email`) VALUES ('陈思宇', '花海仓', '周杰伦', '13822192563', 'siruschen@foxmail.com')
  */
