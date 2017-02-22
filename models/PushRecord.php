@@ -25,11 +25,11 @@ class PushRecord extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'department' => 'Department',
-            'guy_name' => 'Guy Name',
-            'guy_phone' => 'Guy Phone',
-            'guy_email' => 'Guy Email',
+            'name' => '名称',
+            'department' => '部门',
+            'guy_name' => '推荐人名称',
+            'guy_phone' => '推荐人电话',
+            'guy_email' => '推荐人邮箱',
         ];
     }
 }

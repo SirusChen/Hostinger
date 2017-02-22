@@ -93,4 +93,12 @@ class PushController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * 接口部分
+     */
+    public function actionList() {
+        $row = PushRecord::find()->asArray()->all();
+        echo json_encode($row);
+    }
 }
