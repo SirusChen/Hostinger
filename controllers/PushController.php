@@ -94,11 +94,45 @@ class PushController extends Controller {
         }
     }
 
+    /****************** 接口部分 ******************/
     /**
-     * 接口部分
+     * 格式化返回值
+     * @param $data
+     * @param string $msg
+     * @param int $code
      */
+    protected function respond ($data, $msg = 'success', $code = 200) {
+        $resp = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($resp);
+    }
+
     public function actionList() {
         $row = PushRecord::find()->asArray()->all();
-        echo json_encode($row);
+        $this->respond($row);
+    }
+
+    public function actionAdd() {
+        $model = new PushRecord();
+        $param = Yii::$app->request->get();
+        // 检查重复
+        $model->load($param);
+        $count = PushRecord::find()->where([
+            'name' => $model->name,
+            'guy_name' => $model->guy_name
+        ])->count();
+        if ($count > 0) {
+            $this->respond('', '此人已被推荐', 101);
+            return;
+        }
+        // 保存
+        if ($model->save()) {
+            $this->respond($model);
+        } else {
+            $this->respond($param, '推荐人手机号重复', 100);
+        }
     }
 }

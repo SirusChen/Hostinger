@@ -17,6 +17,9 @@ class PushRecord extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
+            ['guy_phone', 'unique'],
+            [['name', 'department', 'guy_name', 'guy_email', 'guy_phone'], 'required'],
+            ['guy_email', 'email'],
             [['name', 'department', 'guy_name', 'guy_email'], 'string', 'max' => 50],
             [['guy_phone'], 'string', 'max' => 11],
         ];
