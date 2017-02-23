@@ -105,13 +105,22 @@ class PushController extends Controller {
         $resp = array(
             'code' => $code,
             'msg' => $msg,
-            'data' => $data,
+            'data' => $data ? $data : [],
         );
         echo json_encode($resp);
     }
 
     public function actionList() {
         $row = PushRecord::find()->asArray()->all();
+        $this->respond($row);
+    }
+
+    public function actionOne() {
+        $row = PushRecord::find()->where([
+            'name' => Yii::$app->request->get('name'),
+            'guy_name' => Yii::$app->request->get('guy_name')
+        ])->asArray()->one();
+        unset($row['id']);
         $this->respond($row);
     }
 
