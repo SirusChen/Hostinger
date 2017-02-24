@@ -107,7 +107,12 @@ class PushController extends Controller {
             'msg' => $msg,
             'data' => $data ? $data : [],
         );
-        echo json_encode($resp);
+        $callback = Yii::$app->request->get('callback', '');
+        if (empty($callback)) {
+            echo json_encode($resp);
+        } else {
+            echo $callback.'('.json_encode($resp).')';
+        }
     }
 
     public function actionList() {
