@@ -14,7 +14,7 @@ $is_api = strpos($_SERVER['REQUEST_URI'], '/index') == 0;
 if ($is_api && isset($output['r'])) {
     echo getLocalContent($output['r']);
 } else {
-    
+
 }
 
 function getLocalContent ($url) {
