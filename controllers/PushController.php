@@ -121,9 +121,14 @@ class PushController extends Controller {
     }
 
     public function actionOne() {
+        $model = new PushRecord();
+        $param = Yii::$app->request->get();
+        // 检查重复
+        $model->load($param);
+
         $row = PushRecord::find()->where([
-            'name' => Yii::$app->request->get('name'),
-            'guy_name' => Yii::$app->request->get('guy_name')
+            'name' => $model->name,
+            'guy_name' => $model->guy_name
         ])->asArray()->one();
         unset($row['id']);
         $this->respond($row);
@@ -147,6 +152,35 @@ class PushController extends Controller {
             $this->respond($model);
         } else {
             $this->respond($param, '推荐人手机号重复', 100);
+        }
+    }
+
+    public function actionDownload () {
+        $row = PushRecord::find()->asArray()->all();
+        $this->changeToCSV($row);
+    }
+
+    public function changeToCSV ($row) {
+        $string = '';
+        if ($row) {
+            // header
+            $header = array();
+            foreach ($row[0] as $key => $val) {
+                array_push($header, $key);
+            }
+            $string .= implode(",", $header)."\n";
+            // body
+            foreach ($row as $item) {
+                $string .= implode(",", $item)."\n";
+            }
+            $filename = date('Ymd').'.csv'; //设置文件名
+            header("Content-type:text/csv");
+            header("Content-Disposition:attachment;filename=".$filename);
+            header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+            header('Expires:0');
+            header('Pragma:public');
+            $string = mb_convert_encoding($string, 'gb2312', 'utf-8');
+            echo $string;
         }
     }
 }
